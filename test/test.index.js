@@ -8,11 +8,39 @@
 'use strict';
 
 var expect = require('chai-jasmine').expect;
-var index = require('../src/index.js');
+var version = require('../src/index.js');
 
-describe('测试文件', function () {
-    it('base', function () {
-        expect(index).toEqual('index');
+describe('blear.utils.version', function () {
+    it('.gt', function () {
+        expect(version.gt('1.2.33', '1.2.31')).toEqual(true);
+        expect(version.gt('1.2.31.2', '1.2.31')).toEqual(true);
+        expect(version.gt('1.2.31', '1.2')).toEqual(true);
+        expect(version.gt('1.2.31', '1.2.33')).toEqual(false);
+        expect(version.gt('1.2.31', '1.2.31')).toEqual(false);
+    });
+
+    it('.lt', function () {
+        expect(version.lt('1.2.33', '1.2.31')).toEqual(false);
+        expect(version.lt('1.2.31.2', '1.2.31')).toEqual(false);
+        expect(version.lt('1.2.31', '1.2')).toEqual(false);
+        expect(version.lt('1.2.31', '1.2.33')).toEqual(true);
+        expect(version.lt('1.2.31', '1.2.31')).toEqual(false);
+    });
+
+    it('.gte', function () {
+        expect(version.gte('1.2.33', '1.2.31')).toEqual(true);
+        expect(version.gte('1.2.31.2', '1.2.31')).toEqual(true);
+        expect(version.gte('1.2.31', '1.2')).toEqual(true);
+        expect(version.gte('1.2.31', '1.2.33')).toEqual(false);
+        expect(version.gte('1.2.31', '1.2.31')).toEqual(true);
+    });
+
+    it('.lte', function () {
+        expect(version.lte('1.2.33', '1.2.31')).toEqual(false);
+        expect(version.lte('1.2.31.2', '1.2.31')).toEqual(false);
+        expect(version.lte('1.2.31', '1.2')).toEqual(false);
+        expect(version.lte('1.2.31', '1.2.33')).toEqual(true);
+        expect(version.lte('1.2.31', '1.2.31')).toEqual(true);
     });
 });
 
